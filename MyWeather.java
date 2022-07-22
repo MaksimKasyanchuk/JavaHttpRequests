@@ -17,21 +17,21 @@ public class MyWeather{
 
 
     public static void server() throws IOException{
-        URL url = new URL(WEB_URL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+        URL url = new URL(WEB_URL); // Create URL object
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection(); // Create connection to URL
+        connection.setRequestMethod("GET"); // Set a request method for connection
+        connection.setRequestProperty("User-Agent", USER_AGENT); // Set agent to connection
+        int responseCode = connection.getResponseCode(); // Get response code from connection
+        if (responseCode == HttpURLConnection.HTTP_OK) { // check if connection is ok, and it has response code 200
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream())); // create a char reader
+            String inputLine; // Create a line of characters
+            StringBuffer response = new StringBuffer(); // Convert response to string
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            } in.close();
+            while ((inputLine = in.readLine()) != null) { // Check if reader isn't null, and it is reading lines
+                response.append(inputLine); // Add a line to our response if everything works
+            } in.close(); // close reader
 
-            System.out.println(response);
+            System.out.println(response); // print response
 
             System.out.println("----------------------");
 
@@ -40,10 +40,10 @@ public class MyWeather{
             final JSONArray arr = data.getJSONArray("weather"); // get weather value from data array
 
             for (int i = 0; i < arr.length(); i++) { // go through the weather list
-                final String weatherId = String.valueOf(arr.getJSONObject(i).getInt("id")); // get weather list object named id
-                final String weatherMain = arr.getJSONObject(i).getString("main"); // get weather list object named main
-                final String weatherDescription = arr.getJSONObject(i).getString("description"); // get weather list object named description
-                final String weatherIcon = arr.getJSONObject(i).getString("icon"); // get weather list object named icon
+                final String weatherId = String.valueOf(arr.getJSONObject(i).getInt("id")); // get weather list value "id"
+                final String weatherMain = arr.getJSONObject(i).getString("main"); // get weather list value "main"
+                final String weatherDescription = arr.getJSONObject(i).getString("description"); // get weather list value "description"
+                final String weatherIcon = arr.getJSONObject(i).getString("icon"); // get weather list value "icon"
 
                 System.out.println(weatherId);
                 System.out.println(weatherMain);
